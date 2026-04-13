@@ -1,47 +1,24 @@
 package com.example.dermcalc
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.dermcalc.ui.theme.DermCalcTheme
+import androidx.appcompat.app.AppCompatActivity // Cambiato da ComponentActivity
+import android.widget.Button
+import android.widget.Toast
 
-class MainActivity : ComponentActivity() {
+// Usiamo AppCompatActivity per supportare i layout XML classici
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            DermCalcTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
+        // Questo comando collega il file XML che abbiamo creato
+        setContentView(R.layout.activity_main)
+
+        // Esempio di come collegare i bottoni e aggiungere un'azione
+        val btnPasi = findViewById<Button>(R.id.btn_pasi)
+        btnPasi.setOnClickListener {
+            // Per ora mostriamo solo un messaggio, poi qui caricherai la nuova schermata
+            Toast.makeText(this, "Apertura Calcolatore PASI", Toast.LENGTH_SHORT).show()
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DermCalcTheme {
-        Greeting("Android")
     }
 }
