@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.DermCalc" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
 
-    <style name="Theme.DermCalc" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.DermCalc" parent="Base.Theme.DermCalc" />
 </resources>
