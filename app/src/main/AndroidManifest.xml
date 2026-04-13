@@ -25,6 +25,7 @@
         <activity android:name=".PasiActivity" />
         <activity android:name=".EasiActivity" />
         <activity android:name=".BmiActivity" />
+        <activity android:name=".BsaActivity" />
 
     </application>
 
