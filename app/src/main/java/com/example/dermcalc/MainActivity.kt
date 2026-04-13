@@ -28,5 +28,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val btnBmi = findViewById<Button>(R.id.btn_bmi)
+        btnBmi.setOnClickListener {
+            val intent = Intent(this, BmiActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
