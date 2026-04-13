@@ -24,29 +24,37 @@
     <Button
         android:id="@+id/btn_pasi"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="PASI (Psoriasi)"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="65dp"
+            android:text="Calcola PASI (Psoriasi)"
+        android:drawableLeft="@drawable/icon_pasi" android:drawablePadding="12dp"        android:paddingLeft="16dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/btn_easi"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="EASI (Dermatite Atopica)"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="65dp"
+        android:text="Calcola EASI (Dermatite Atopica)"
+        android:drawableLeft="@drawable/icon_easi" android:drawablePadding="12dp"        android:paddingLeft="16dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/btn_bmi"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="BMI (Indice Massa Corporea)"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="65dp"
+        android:text="Calcola BMI (Indice Massa Corporea)"
+        android:drawableLeft="@drawable/icon_bmi" android:drawablePadding="12dp"        android:paddingLeft="16dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/btn_bsa"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="BSA (Superficie Corporea)"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="65dp"
+        android:text="Calcola BSA (Superfice Corporea)"
+        android:drawableLeft="@drawable/icon_bsa" android:drawablePadding="12dp"        android:paddingLeft="16dp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp" />
 
 </LinearLayout>
