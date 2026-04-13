@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcolo BMI"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Peso (kg):" />
+    <EditText
+        android:id="@+id/et_peso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Es: 75.5"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Altezza (cm):" />
+    <EditText
+        android:id="@+id/et_altezza"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Es: 175"
+        android:inputType="number"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btn_calcola_bmi"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="CALCOLA BMI"
+        android:backgroundTint="@android:color/holo_orange_dark" />
+
+</LinearLayout>
