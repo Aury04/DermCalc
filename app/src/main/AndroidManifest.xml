@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".PasiActivity" />
+        <activity android:name=".EasiActivity" />
 
     </application>
 

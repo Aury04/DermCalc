@@ -21,5 +21,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, PasiActivity::class.java)
             startActivity(intent)
         }
+
+        val btnEasi = findViewById<Button>(R.id.btn_easi)
+        btnEasi.setOnClickListener {
+            val intent = Intent(this, EasiActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
