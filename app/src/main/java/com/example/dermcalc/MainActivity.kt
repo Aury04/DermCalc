@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity // Cambiato da ComponentActivity
 import android.widget.Button
@@ -17,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         // Esempio di come collegare i bottoni e aggiungere un'azione
         val btnPasi = findViewById<Button>(R.id.btn_pasi)
         btnPasi.setOnClickListener {
-            // Per ora mostriamo solo un messaggio, poi qui caricherai la nuova schermata
-            Toast.makeText(this, "Apertura Calcolatore PASI", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, PasiActivity::class.java)
+            startActivity(intent)
         }
     }
 }
