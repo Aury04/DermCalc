@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,10 @@ class PasiActivity : AppCompatActivity() {
                 rgE.clearCheck(); rgI.clearCheck(); rgD.clearCheck(); rgA.clearCheck()
                 if (indiceCorrente == distretti.size - 1) btnNext.text = "CALCOLA RISULTATO"
             } else {
-                mostraRisultatoFinale()
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("EXTRA_SCORE", pasiTotale)
+                intent.putExtra("EXTRA_TYPE", "PASI")
+                startActivity(intent)
             }
         }
     }

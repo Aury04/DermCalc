@@ -26,6 +26,7 @@
         <activity android:name=".EasiActivity" />
         <activity android:name=".BmiActivity" />
         <activity android:name=".BsaActivity" />
+        <activity android:name=".ResultActivity" android:exported="false"/>
 
     </application>
 

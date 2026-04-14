@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,10 @@ class EasiActivity : AppCompatActivity() {
                 groups.forEach { it.clearCheck() }
                 if (indiceCorrente == 3) btnNext.text = "CALCOLA EASI"
             } else {
-                mostraRisultato()
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("EXTRA_SCORE", easiTotale)
+                intent.putExtra("EXTRA_TYPE", "EASI")
+                startActivity(intent)
             }
         }
     }
