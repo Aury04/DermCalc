@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -44,7 +45,10 @@ class BmiActivity : AppCompatActivity() {
             val altezzaM = altezzaCm / 100
             val bmi = peso / (altezzaM * altezzaM)
 
-            mostraRisultato(bmi)
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("EXTRA_SCORE", bmi)
+            intent.putExtra("EXTRA_TYPE", "BMI")
+            startActivity(intent)
         }
     }
 

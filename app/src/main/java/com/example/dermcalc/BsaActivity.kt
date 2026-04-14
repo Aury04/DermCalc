@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -37,7 +38,10 @@ class BsaActivity : AppCompatActivity() {
                 // Calcolo BSA con formula di Mosteller
                 val bsa = sqrt((altezza * peso) / 3600)
 
-                mostraRisultato(bsa)
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("EXTRA_SCORE", bsa)
+                intent.putExtra("EXTRA_TYPE", "BSA")
+                startActivity(intent)
             }
         }
     }
