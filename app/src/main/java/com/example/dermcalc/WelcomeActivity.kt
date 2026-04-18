@@ -36,8 +36,7 @@ class WelcomeActivity : AppCompatActivity() {
 
         // 3. Azione Bottone "Login o Registrati"
         btnLogin.setOnClickListener {
-            // Qui potrai collegare la pagina di login quando la creeremo
-            // Per ora mostriamo un messaggio o lasciamo pronto il codice
+                startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

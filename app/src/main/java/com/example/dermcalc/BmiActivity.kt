@@ -5,14 +5,22 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope // NUOVO: serve per le coroutine
+import com.example.dermcalc.data.DermCalcDatabase
+import com.example.dermcalc.data.BmiScore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BmiActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi)
+
+        // Inizializziamo il DB
+        val db = DermCalcDatabase.getDatabase(this) // NUOVO
 
         val etPeso = findViewById<EditText>(R.id.et_peso)
         val etAltezza = findViewById<EditText>(R.id.et_altezza)
@@ -22,7 +30,6 @@ class BmiActivity : AppCompatActivity() {
             val pesoStr = etPeso.text.toString()
             val altezzaStr = etAltezza.text.toString()
 
-            // Gestione degli errori: verifica campi vuoti
             if (pesoStr.isEmpty() || altezzaStr.isEmpty()) {
                 Toast.makeText(this, "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -31,39 +38,43 @@ class BmiActivity : AppCompatActivity() {
             val peso = pesoStr.toDouble()
             val altezzaCm = altezzaStr.toDouble()
 
-            if (altezzaCm <= 0) {
-                Toast.makeText(this, "Altezza non valida!", Toast.LENGTH_SHORT).show()
+            if (altezzaCm <= 0 || peso <= 0) {
+                Toast.makeText(this, "Dati non validi!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (peso <= 0) {
-                Toast.makeText(this, "Peso non valido!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Conversione altezza in metri per la formula
             val altezzaM = altezzaCm / 100
             val bmi = peso / (altezzaM * altezzaM)
 
-            val intent = Intent(this, ResultActivity::class.java)
-            intent.putExtra("EXTRA_SCORE", bmi)
-            intent.putExtra("EXTRA_TYPE", "BMI")
-            startActivity(intent)
-        }
-    }
+            // --- INIZIO LOGICA DI SALVATAGGIO --- // NUOVO
+            val cfAttivo = SessionManager.getUtenteCF(this)
 
-    private fun mostraRisultato(bmi: Double) {
-        val categoria = when {
-            bmi < 18.5 -> "Sottopeso"
-            bmi < 25.0 -> "Normopeso"
-            bmi < 30.0 -> "Sovrappeso"
-            else -> "Obesità"
+            if (cfAttivo != null) {
+                // Creiamo l'oggetto da salvare
+                val nuovoRecord = BmiScore(
+                    utenteId = cfAttivo,
+                    risultato = bmi,
+                    dataCalcolo = SessionManager.getDataCorrente() // Usiamo la funzione data
+                )
+
+                // Lanciamo il salvataggio in background
+                lifecycleScope.launch(Dispatchers.IO) {
+                    db.dermCalcDao().insertBmi(nuovoRecord)
+
+                    // Torniamo sul thread principale per cambiare pagina
+                    withContext(Dispatchers.Main) {
+                        val intent = Intent(this@BmiActivity, ResultActivity::class.java)
+                        intent.putExtra("EXTRA_SCORE", bmi)
+                        intent.putExtra("EXTRA_TYPE", "BMI")
+                        startActivity(intent)
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Errore: sessione scaduta!", Toast.LENGTH_SHORT).show()
+            }
+            // --- FINE LOGICA DI SALVATAGGIO ---
         }
 
-        AlertDialog.Builder(this)
-            .setTitle("Risultato BMI")
-            .setMessage("Il tuo BMI è: ${String.format("%.2f", bmi)}\nCategoria: $categoria")
-            .setPositiveButton("OK") { _, _ -> finish() }
-            .show()
+
     }
 }
