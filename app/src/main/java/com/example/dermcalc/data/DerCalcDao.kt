@@ -5,6 +5,9 @@ import androidx.room.*
 @Dao
 interface DermCalcDao {
     // Aggiungiamo ": Long" a tutti gli insert per evitare il bug "signature V"
+
+    @Query("SELECT * FROM utenti WHERE codFiscale = :cf LIMIT 1")
+    suspend fun checkUtenteEsistente(cf: String): Utente?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUtente(utente: Utente): Unit
 

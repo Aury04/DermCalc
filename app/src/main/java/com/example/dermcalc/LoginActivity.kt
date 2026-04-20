@@ -1,4 +1,4 @@
-package com.example.dermcalc // Assicurati che questo corrisponda al tuo progetto
+package com.example.dermcalc
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.dermcalc.databinding.ActivityLoginBinding
 import com.example.dermcalc.data.DermCalcDatabase
+import com.example.dermcalc.data.SessionManager
+import com.example.dermcalc.controlli.ControlliRL // Importiamo la tua classe dei controlli
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
-    // Utilizziamo ViewBinding per accedere agli elementi dell'XML
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,57 +22,50 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inizializziamo l'istanza del Database
         val db = DermCalcDatabase.getDatabase(this)
 
-        // 1. GESTIONE DEL TASTO LOGIN
         binding.btnLogin.setOnClickListener {
             val cf = binding.etCF.text.toString().trim().uppercase()
-            val password = binding.etPassword.text.toString().trim()
+            val passwordInserita = binding.etPassword.text.toString().trim()
 
-            // Controllo rapido che i campi non siano vuoti
-            if (cf.isEmpty() || password.isEmpty()) {
+            if (cf.isEmpty() || passwordInserita.isEmpty()) {
                 Toast.makeText(this, "Per favore, compila tutti i campi", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Operazione su Database (Thread IO) tramite Coroutine
-            lifecycleScope.launch(Dispatchers.IO) {
-                val utente = db.dermCalcDao().login(cf, password)
+            // --- NUOVA LOGICA: CRIPTAZIONE PER IL CONFRONTO ---
+            // Trasformiamo la password inserita nello stesso Hash usato in registrazione
+            val passwordCriptata = ControlliRL.hashPassword(passwordInserita)
 
-                // Torniamo sul thread principale (Main) per aggiornare l'interfaccia
+            lifecycleScope.launch(Dispatchers.IO) {
+                // Cerchiamo l'utente usando CF e la password CRIPTATA
+                val utente = db.dermCalcDao().login(cf, passwordCriptata)
+
                 withContext(Dispatchers.Main) {
                     if (utente != null) {
-                        // --- SALVATAGGIO SESSIONE (Il nostro "Cookie") ---
-                        val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-                        sharedPref.edit().putString("utente_cf", cf).apply()
+                        SessionManager.saveUtenteCF(cf)
 
                         Toast.makeText(this@LoginActivity, "Bentornato, ${utente.nome}!", Toast.LENGTH_SHORT).show()
 
-                        // Navigazione verso la pagina principale
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-
-                        // FLAG importanti: puliscono la cronologia così l'utente non torna al login col tasto indietro
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
+                        finish()
                     } else {
-                        // Se l'utente è null, le credenziali sono sbagliate
+                        // Se l'utente non viene trovato, potrebbe essere il CF sbagliato
+                        // o la password che, una volta criptata, non corrisponde a quella nel DB
                         Toast.makeText(this@LoginActivity, "Codice Fiscale o Password errati", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
 
-        // 2. COLLEGAMENTO ALLA PAGINA DI REGISTRAZIONE
         binding.tvVaiARegistrati.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            // Nota: non usiamo finish() perché l'utente potrebbe voler tornare indietro al login
         }
 
-        // 3. TASTO PER TORNARE ALLA WELCOME
         binding.tvTornaIndietro.setOnClickListener {
-            // Semplicemente chiudiamo questa Activity per tornare a quella precedente (Welcome)
             finish()
         }
     }
