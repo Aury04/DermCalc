@@ -4,7 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
+import com.example.dermcalc.data.DermCalcDatabase
+import com.example.dermcalc.data.PasiScore
+import com.example.dermcalc.data.SessionManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PasiActivity : AppCompatActivity() {
 
@@ -17,6 +22,9 @@ class PasiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pasi)
 
+        // Inizializzazione Database
+        val db = DermCalcDatabase.getDatabase(this)
+
         val tvTitolo = findViewById<TextView>(R.id.tv_distretto_titolo)
         val btnNext = findViewById<Button>(R.id.btn_next)
 
@@ -26,7 +34,7 @@ class PasiActivity : AppCompatActivity() {
         val rgA = findViewById<RadioGroup>(R.id.rg_area)
 
         btnNext.setOnClickListener {
-            // Validazione: controlla se tutti i campi sono selezionati [cite: 37]
+            // Validazione: controlla se tutti i campi sono selezionati
             if (rgE.checkedRadioButtonId == -1 || rgI.checkedRadioButtonId == -1 ||
                 rgD.checkedRadioButtonId == -1 || rgA.checkedRadioButtonId == -1) {
                 Toast.makeText(this, "Seleziona tutti i parametri!", Toast.LENGTH_SHORT).show()
@@ -39,7 +47,7 @@ class PasiActivity : AppCompatActivity() {
             val d = findViewById<RadioButton>(rgD.checkedRadioButtonId).text.toString().toInt()
             val a = findViewById<RadioButton>(rgA.checkedRadioButtonId).text.toString().toInt()
 
-            // Calcolo parziale per il distretto [cite: 64, 68]
+            // Calcolo parziale per il distretto
             val parziale = (e + i + d) * a * pesi[indiceCorrente]
             pasiTotale += parziale
 
@@ -51,25 +59,33 @@ class PasiActivity : AppCompatActivity() {
                 rgE.clearCheck(); rgI.clearCheck(); rgD.clearCheck(); rgA.clearCheck()
                 if (indiceCorrente == distretti.size - 1) btnNext.text = "CALCOLA RISULTATO"
             } else {
-                val intent = Intent(this, ResultActivity::class.java)
+                // --- FINE DEI DISTRETTI: LOGICA DI SALVATAGGIO ---
+                val cfAttivo = SessionManager.getUtenteCF(this)
+
+                if (cfAttivo != null) {
+                    val nuovoRecord = PasiScore(
+                        utenteId = cfAttivo,
+                        risultato = pasiTotale,
+                        dataCalcolo = SessionManager.getDataCorrente()
+                    )
+
+                    // Salvataggio in background
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        try {
+                            db.dermCalcDao().insertPasi(nuovoRecord)
+                        } catch (e: Exception) {
+                            // Errore DB gestito silenziosamente
+                        }
+                    }
+                }
+
+                // --- NAVIGAZIONE AI RISULTATI (Sempre eseguita) ---
+                val intent = Intent(this@PasiActivity, ResultActivity::class.java)
                 intent.putExtra("EXTRA_SCORE", pasiTotale)
                 intent.putExtra("EXTRA_TYPE", "PASI")
                 startActivity(intent)
+                finish() // Chiude l'activity di calcolo
             }
         }
-    }
-
-    private fun mostraRisultatoFinale() {
-        val classeClinica = when {
-            pasiTotale < 5 -> "Lieve"
-            pasiTotale <= 10 -> "Moderata"
-            else -> "Severa"
-        }
-
-        AlertDialog.Builder(this)
-            .setTitle("Risultato PASI")
-            .setMessage("Score Totale: ${String.format("%.1f", pasiTotale)}\nClasse: $classeClinica")
-            .setPositiveButton("OK") { _, _ -> finish() }
-            .show()
     }
 }

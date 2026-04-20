@@ -4,7 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
+import com.example.dermcalc.data.DermCalcDatabase
+import com.example.dermcalc.data.EasiScore
+import com.example.dermcalc.data.SessionManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EasiActivity : AppCompatActivity() {
 
@@ -15,6 +20,9 @@ class EasiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_easi)
+
+        // Inizializziamo il DB
+        val db = DermCalcDatabase.getDatabase(this)
 
         val rgEta = findViewById<RadioGroup>(R.id.rg_eta)
         val tvDistretto = findViewById<TextView>(R.id.tv_distretto_nome)
@@ -52,15 +60,39 @@ class EasiActivity : AppCompatActivity() {
             easiTotale += (e + p + ex + l) * areaScore * pesoArea
 
             indiceCorrente++
+
             if (indiceCorrente < distretti.size) {
+                // Passa al prossimo distretto
                 tvDistretto.text = "Distretto: ${distretti[indiceCorrente]}"
                 groups.forEach { it.clearCheck() }
                 if (indiceCorrente == 3) btnNext.text = "CALCOLA EASI"
             } else {
+                // --- FINE DEI DISTRETTI: LOGICA DI SALVATAGGIO ---
+                val cfAttivo = SessionManager.getUtenteCF(this)
+
+                if (cfAttivo != null) {
+                    val nuovoRecord = EasiScore(
+                        utenteId = cfAttivo,
+                        risultato = easiTotale,
+                        dataCalcolo = SessionManager.getDataCorrente()
+                    )
+
+                    // Salvataggio "silenzioso" in background
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        try {
+                            db.dermCalcDao().insertEasi(nuovoRecord)
+                        } catch (e: Exception) {
+                            // Errore DB ignorato per non bloccare l'utente
+                        }
+                    }
+                }
+
+                // --- NAVIGAZIONE (Sempre eseguita) ---
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("EXTRA_SCORE", easiTotale)
                 intent.putExtra("EXTRA_TYPE", "EASI")
                 startActivity(intent)
+                finish() // Chiude l'activity di calcolo
             }
         }
     }
@@ -68,34 +100,12 @@ class EasiActivity : AppCompatActivity() {
     private fun getPesoEasi(distrettoIdx: Int, adulto: Boolean): Double {
         return if (adulto) {
             when (distrettoIdx) {
-                0 -> 0.1; 1 -> 0.2; 2 -> 0.3; else -> 0.4 // Testa, Braccia, Tronco, Gambe
+                0 -> 0.1; 1 -> 0.2; 2 -> 0.3; else -> 0.4
             }
         } else {
             when (distrettoIdx) {
-                0 -> 0.2; 1 -> 0.2; 2 -> 0.3; else -> 0.3 // Pesi diversi per bambini < 8 anni
+                0 -> 0.2; 1 -> 0.2; 2 -> 0.3; else -> 0.3
             }
         }
-    }
-
-    private fun mostraRisultato() {
-        // Logica di interpretazione basata sulla scala EASI standard
-        val interpretazione = when {
-            easiTotale == 0.0 -> "Pelle sana (Assente)"
-            easiTotale <= 1.0 -> "Malattia quasi assente"
-            easiTotale <= 7.0 -> "Dermatite Lieve"
-            easiTotale <= 21.0 -> "Dermatite Moderata"
-            easiTotale <= 50.0 -> "Dermatite Severa"
-            else -> "Dermatite Molto Severa"
-        }
-
-        // Creazione dell'AlertDialog per mostrare il risultato finale
-        AlertDialog.Builder(this)
-            .setTitle("Risultato EASI")
-            .setMessage("Punteggio Totale: ${String.format("%.1f", easiTotale)}\n\nInterpretazione: $interpretazione")
-            .setCancelable(false) // Impedisce di chiudere cliccando fuori, obbliga a premere OK
-            .setPositiveButton("TORNA ALLA HOME") { _, _ ->
-                finish() // Chiude l'activity e torna alla MainActivity
-            }
-            .show()
     }
 }
