@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity // Cambiato da ComponentActivity
 import android.widget.Button
 import android.widget.Toast
+import com.example.dermcalc.controlloNavBar.NavManager
 
 // Usiamo AppCompatActivity per supportare i layout XML classici
 class MainActivity : AppCompatActivity() {
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         // Questo comando collega il file XML che abbiamo creato
         setContentView(R.layout.activity_main)
+        NavManager.inizializzaNavbar(this)
 
         // Esempio di come collegare i bottoni e aggiungere un'azione
         val btnPasi = findViewById<Button>(R.id.btn_pasi)

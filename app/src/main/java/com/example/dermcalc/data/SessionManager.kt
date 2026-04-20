@@ -1,6 +1,7 @@
 package com.example.dermcalc.data
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -25,6 +26,10 @@ object SessionManager {
 
     // 3. Funzione Logout (per il tasto esci o per resettare)
     fun logout() {
+        utenteCfAttivo = null
+    }
+
+    fun logoutB(activity: AppCompatActivity) {
         utenteCfAttivo = null
     }
 

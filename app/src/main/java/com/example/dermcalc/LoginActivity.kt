@@ -65,8 +65,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.tvTornaIndietro.setOnClickListener {
-            finish()
+        binding.tvTornaWelcome.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
         }
     }
 }

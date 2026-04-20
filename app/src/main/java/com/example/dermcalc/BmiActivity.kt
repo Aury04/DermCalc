@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope // NUOVO: serve per le coroutine
+import com.example.dermcalc.controlloNavBar.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.BmiScore
 import com.example.dermcalc.data.SessionManager
@@ -19,6 +20,8 @@ class BmiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi)
+
+        NavManager.inizializzaNavbar(this)
 
         // Inizializziamo il DB
         val db = DermCalcDatabase.getDatabase(this) // NUOVO

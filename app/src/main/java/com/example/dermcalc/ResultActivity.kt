@@ -6,12 +6,14 @@ import android.graphics.Color
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dermcalc.controlloNavBar.NavManager
 
 class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+        NavManager.inizializzaNavbar(this)
 
         val tvTitle = findViewById<TextView>(R.id.tv_result_title)
         val tvScore = findViewById<TextView>(R.id.tv_score_value)
