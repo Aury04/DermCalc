@@ -6,25 +6,32 @@ import java.util.Calendar
 import java.util.Locale
 
 object SessionManager {
-    private const val PREFS_NAME = "DermCalcPrefs"
-    private const val KEY_CF = "utente_cf"
 
-    // Recupera il CF dell'utente loggato
+    // --- QUESTA È LA CHIAVE ---
+    // Usiamo una variabile semplice invece delle SharedPreferences.
+    // Essendo un 'object', questa variabile è globale per l'app,
+    // ma scompare non appena l'app viene chiusa del tutto.
+    private var utenteCfAttivo: String? = null
+
+    // 1. Funzione per salvare (da chiamare nel Login)
+    fun saveUtenteCF(cf: String) {
+        utenteCfAttivo = cf
+    }
+
+    // 2. Funzione per recuperare (da chiamare nei calcoli BMI, BSA, ecc.)
     fun getUtenteCF(context: Context): String? {
-        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return prefs.getString(KEY_CF, null)
+        return utenteCfAttivo
     }
 
-    // Cancella la sessione (Logout)
-    fun logout(context: Context) {
-        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit().clear().apply()
+    // 3. Funzione Logout (per il tasto esci o per resettare)
+    fun logout() {
+        utenteCfAttivo = null
     }
 
+    // Funzione per la data (rimane uguale)
     fun getDataCorrente(): String {
         val date = Calendar.getInstance().time
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(date)
     }
-
 }
