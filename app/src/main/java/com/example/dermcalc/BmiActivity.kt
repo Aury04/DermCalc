@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope // NUOVO: serve per le coroutine
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.BmiScore
+import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,33 +47,31 @@ class BmiActivity : AppCompatActivity() {
             val altezzaM = altezzaCm / 100
             val bmi = peso / (altezzaM * altezzaM)
 
-            // --- INIZIO LOGICA DI SALVATAGGIO --- // NUOVO
+            // 1. RECUPERIAMO IL CF (se esiste)
             val cfAttivo = SessionManager.getUtenteCF(this)
 
+            // 2. LOGICA DI SALVATAGGIO (Solo se loggato)
             if (cfAttivo != null) {
-                // Creiamo l'oggetto da salvare
                 val nuovoRecord = BmiScore(
                     utenteId = cfAttivo,
                     risultato = bmi,
-                    dataCalcolo = SessionManager.getDataCorrente() // Usiamo la funzione data
+                    dataCalcolo = SessionManager.getDataCorrente()
                 )
 
-                // Lanciamo il salvataggio in background
+                // Salvataggio "silenzioso" in background (non blocca l'utente)
                 lifecycleScope.launch(Dispatchers.IO) {
-                    db.dermCalcDao().insertBmi(nuovoRecord)
-
-                    // Torniamo sul thread principale per cambiare pagina
-                    withContext(Dispatchers.Main) {
-                        val intent = Intent(this@BmiActivity, ResultActivity::class.java)
-                        intent.putExtra("EXTRA_SCORE", bmi)
-                        intent.putExtra("EXTRA_TYPE", "BMI")
-                        startActivity(intent)
+                    try {
+                        db.dermCalcDao().insertBmi(nuovoRecord)
+                    } catch (e: Exception) {
+                        // Errore silenzioso o log
                     }
                 }
-            } else {
-                Toast.makeText(this, "Errore: sessione scaduta!", Toast.LENGTH_SHORT).show()
             }
-            // --- FINE LOGICA DI SALVATAGGIO ---
+            // 3. NAVIGAZIONE AI RISULTATI (Sempre, anche se non loggato)
+            val intent = Intent(this@BmiActivity, ResultActivity::class.java)
+            intent.putExtra("EXTRA_SCORE", bmi)
+            intent.putExtra("EXTRA_TYPE", "BMI")
+            startActivity(intent)
         }
 
 

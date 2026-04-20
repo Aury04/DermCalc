@@ -1,6 +1,9 @@
-package com.example.dermcalc
+package com.example.dermcalc.data
 
 import android.content.Context
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 object SessionManager {
     private const val PREFS_NAME = "DermCalcPrefs"
@@ -19,8 +22,8 @@ object SessionManager {
     }
 
     fun getDataCorrente(): String {
-        val date = java.util.Calendar.getInstance().time
-        val formatter = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return formatter.format(date)
     }
 
