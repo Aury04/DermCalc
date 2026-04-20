@@ -7,13 +7,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope // NUOVO: serve per le coroutine
-import com.example.dermcalc.controlloNavBar.NavManager
+import com.example.dermcalc.NavBarControl.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.BmiScore
 import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class BmiActivity : AppCompatActivity() {
 

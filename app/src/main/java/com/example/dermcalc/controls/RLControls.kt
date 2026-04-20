@@ -1,8 +1,8 @@
-package com.example.dermcalc.controlli
+package com.example.dermcalc.controls
 
 import java.security.MessageDigest
 
-object ControlliRL {
+object RLControls {
 
     // Funzione per validare la Email
     fun isEmailValida(email: String): Boolean {

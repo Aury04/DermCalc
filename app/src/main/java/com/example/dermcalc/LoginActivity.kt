@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.dermcalc.databinding.ActivityLoginBinding
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.SessionManager
-import com.example.dermcalc.controlli.ControlliRL // Importiamo la tua classe dei controlli
+import com.example.dermcalc.controls.RLControls // Importiamo la tua classe dei controlli
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
             // --- NUOVA LOGICA: CRIPTAZIONE PER IL CONFRONTO ---
             // Trasformiamo la password inserita nello stesso Hash usato in registrazione
-            val passwordCriptata = ControlliRL.hashPassword(passwordInserita)
+            val passwordCriptata = RLControls.hashPassword(passwordInserita)
 
             lifecycleScope.launch(Dispatchers.IO) {
                 // Cerchiamo l'utente usando CF e la password CRIPTATA

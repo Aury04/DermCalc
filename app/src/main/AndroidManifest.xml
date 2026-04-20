@@ -30,6 +30,7 @@
         <activity android:name=".ResultActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".MedicalActivity" android:label="Info Parametri" />
 
     </application>
 
