@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.dermcalc.controlloNavBar.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.PasiScore
 import com.example.dermcalc.data.SessionManager
@@ -21,6 +22,8 @@ class PasiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pasi)
+
+        NavManager.inizializzaNavbar(this)
 
         // Inizializzazione Database
         val db = DermCalcDatabase.getDatabase(this)

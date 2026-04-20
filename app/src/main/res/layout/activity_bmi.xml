@@ -1,69 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="?android:attr/windowBackground">
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tv_bmi_titolo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcolo BMI"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peso (kg)"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_peso"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Es: 75.5"
+                android:inputType="numberDecimal"
+                android:background="@android:drawable/editbox_background"
+                android:paddingLeft="12dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Altezza (cm)"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_altezza"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Es: 175"
+                android:inputType="number"
+                android:background="@android:drawable/editbox_background"
+                android:paddingLeft="12dp"
+                android:layout_marginBottom="32dp" />
+
+            <Button
+                android:id="@+id/btn_calcola_bmi"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="CALCOLA BMI"
+                android:backgroundTint="@android:color/holo_orange_dark"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled" />
 
-        <TextView
-            android:id="@+id/tv_bmi_titolo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calcolo BMI"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peso (kg)"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"/>
-
-        <EditText
-            android:id="@+id/et_peso"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Es: 75.5"
-            android:inputType="numberDecimal"
-            android:background="@android:drawable/editbox_background"
-            android:paddingLeft="12dp"
-            android:layout_marginBottom="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Altezza (cm)"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"/>
-
-        <EditText
-            android:id="@+id/et_altezza"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Es: 175"
-            android:inputType="number"
-            android:background="@android:drawable/editbox_background"
-            android:paddingLeft="12dp"
-            android:layout_marginBottom="32dp" />
-
-        <Button
-            android:id="@+id/btn_calcola_bmi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="CALCOLA BMI"
-            android:backgroundTint="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-    </LinearLayout>
-</ScrollView>
+</RelativeLayout>

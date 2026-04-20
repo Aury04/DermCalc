@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dermcalc.data.BsaScore
 import kotlin.math.sqrt
 import androidx.lifecycle.lifecycleScope
+import com.example.dermcalc.controlloNavBar.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,8 @@ class BsaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bsa)
+
+        NavManager.inizializzaNavbar(this)
 
         val db = DermCalcDatabase.getDatabase(this)
 
