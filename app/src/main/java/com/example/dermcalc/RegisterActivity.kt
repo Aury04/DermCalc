@@ -6,7 +6,7 @@ import android.text.InputFilter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.dermcalc.controlli.ControlliRL
+import com.example.dermcalc.controls.RLControls
 import com.example.dermcalc.databinding.ActivityRegisterBinding
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.Utente
@@ -41,17 +41,17 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (!ControlliRL.isCFValido(cf)) {
+            if (!RLControls.isCFValido(cf)) {
                 binding.regCF.error = "Codice Fiscale non valido (16 caratteri richiesti)"
                 return@setOnClickListener
             }
 
-            if (!ControlliRL.isEmailValida(email)) {
+            if (!RLControls.isEmailValida(email)) {
                 binding.regEmail.error = "Inserisci una mail valida"
                 return@setOnClickListener
             }
 
-            if (!ControlliRL.isPasswordSicura(pass)) {
+            if (!RLControls.isPasswordSicura(pass)) {
                 binding.regPass.error = "Password errata: deve essere lunga minimo 8 caratteri, serve 1 maiuscola, 1 numero e 1 simbolo[@#$%^&+=!_]"
                 return@setOnClickListener
             }
@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this@RegisterActivity, "Utente già presente", Toast.LENGTH_SHORT).show()
                     } else {
                         // Spostiamo tutto il salvataggio nell'ELSE
-                        val passwordCriptata = ControlliRL.hashPassword(pass)
+                        val passwordCriptata = RLControls.hashPassword(pass)
                         val nuovoUtente = Utente(
                             codFiscale = cf,
                             nome = nome,

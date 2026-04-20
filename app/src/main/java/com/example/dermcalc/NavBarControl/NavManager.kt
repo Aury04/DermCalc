@@ -1,4 +1,4 @@
-package com.example.dermcalc.controlloNavBar
+package com.example.dermcalc.NavBarControl
 
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
@@ -29,9 +29,9 @@ object NavManager {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_info -> {
-                    // Mostra informazioni sul calcolo corrente
-                    mostrarInfoDialog(activity)
-                    // Ritorna false per non lasciare l'icona "accesa" dopo il click
+                    val intent = Intent(activity, MedicalActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    activity.startActivity(intent)
                     false
                 }
                 R.id.nav_home -> {
@@ -87,16 +87,5 @@ object NavManager {
                 .setNegativeButton("Continua come ospite", null)
                 .show()
         }
-    }
-
-    /**
-     * Mostra un dialog informativo (da personalizzare in base all'Activity).
-     */
-    private fun mostrarInfoDialog(activity: AppCompatActivity) {
-        AlertDialog.Builder(activity)
-            .setTitle("Informazioni")
-            .setMessage("Qui verranno mostrate le spiegazioni sui parametri del calcolo corrente.")
-            .setPositiveButton("OK", null)
-            .show()
     }
 }

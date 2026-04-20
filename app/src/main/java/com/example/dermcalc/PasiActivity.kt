@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.dermcalc.controlloNavBar.NavManager
+import com.example.dermcalc.NavBarControl.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.PasiScore
 import com.example.dermcalc.data.SessionManager

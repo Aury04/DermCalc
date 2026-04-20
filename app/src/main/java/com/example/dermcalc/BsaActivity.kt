@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dermcalc.data.BsaScore
 import kotlin.math.sqrt
 import androidx.lifecycle.lifecycleScope
-import com.example.dermcalc.controlloNavBar.NavManager
+import com.example.dermcalc.NavBarControl.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.Dispatchers

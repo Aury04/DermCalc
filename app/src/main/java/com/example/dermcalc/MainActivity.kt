@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity // Cambiato da ComponentActivity
 import android.widget.Button
-import android.widget.Toast
-import com.example.dermcalc.controlloNavBar.NavManager
+import com.example.dermcalc.NavBarControl.NavManager
 
 // Usiamo AppCompatActivity per supportare i layout XML classici
 class MainActivity : AppCompatActivity() {
