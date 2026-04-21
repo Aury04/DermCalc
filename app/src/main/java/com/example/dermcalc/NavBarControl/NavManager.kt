@@ -80,7 +80,7 @@ object NavManager {
             // Caso 2: UTENTE NON LOGGATO (Ospite)
             AlertDialog.Builder(activity)
                 .setTitle("Accesso Ospite")
-                .setMessage("Registrati o accedi per salvare i tuoi calcoli nel database!")
+                .setMessage("Registrati o accedi")
                 .setPositiveButton("Vai alla Registrazione") { _, _ ->
                     activity.startActivity(Intent(activity, RegisterActivity::class.java))
                 }

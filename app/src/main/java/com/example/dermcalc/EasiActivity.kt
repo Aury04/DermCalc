@@ -68,7 +68,7 @@ class EasiActivity : AppCompatActivity() {
                 // Passa al prossimo distretto
                 tvDistretto.text = "Distretto: ${distretti[indiceCorrente]}"
                 groups.forEach { it.clearCheck() }
-                if (indiceCorrente == 3) btnNext.text = "CALCOLA EASI"
+                if (indiceCorrente == 3) btnNext.text = "CALCOLA RISULTATO"
             } else {
                 // --- FINE DEI DISTRETTI: LOGICA DI SALVATAGGIO ---
                 val cfAttivo = SessionManager.getUtenteCF(this)

@@ -9,21 +9,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
-        android:padding="16dp">
+        android:layout_above="@id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/tv_easi_titolo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EASI: Seleziona Età"
+                android:text="Calcolo EASI: Seleziona Età"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="16dp" />
 
             <RadioGroup
@@ -57,50 +58,106 @@
                 android:layout_height="wrap_content"
                 android:text="Distretto: TESTA"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eritema"
+                android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Eritema" />
-            <RadioGroup android:id="@+id/rg_e" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
+            <RadioGroup
+                android:id="@+id/rg_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
             </RadioGroup>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edema/Papulazione" />
-            <RadioGroup android:id="@+id/rg_p" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edema/Papulazione"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_p"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
             </RadioGroup>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Escoriazione" />
-            <RadioGroup android:id="@+id/rg_ex" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escoriazione"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_ex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
             </RadioGroup>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lichenificazione" />
-            <RadioGroup android:id="@+id/rg_l" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lichenificazione"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
             </RadioGroup>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Area (0-6)" android:textStyle="bold" android:layout_marginTop="8dp"/>
-            <RadioGroup android:id="@+id/rg_area_easi" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="24dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="6" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area Coinvolta (Grado)"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_area_easi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="32dp">
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="4" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="5" />
+                <RadioButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="6" />
             </RadioGroup>
 
             <Button android:id="@+id/btn_next_easi"
