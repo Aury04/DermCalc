@@ -72,7 +72,7 @@
         android:id="@+id/tvTornaWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Annulla e torna alla Welcome"
+        android:text="Annulla e torna alla pagina iniziale"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
         android:textColor="#999999"

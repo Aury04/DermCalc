@@ -72,7 +72,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="4dp"
-                        android:text="La Body Surface Area esprime la superficie totale del corpo in m². È cruciale per il calcolo dei dosaggi farmacologici precisi e dei fluidi endovenosi, essendo più accurata del solo peso corporeo." />
+                        android:text="La Body Surface Area esprime la superficie totale del corpo in m². È cruciale per il calcolo dei dosaggi farmacologici e dei fluidi endovenosi." />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PASI (Psoriasis Area Severity Index)"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="Standard per la psoriasi. Valuta:\n• Eritema: arrossamento\n• Infiltrazione/Indurimento: spessore placca\n• Desquamazione: presenza di scaglie\n• Area: percentuale di superficie colpita\n\nLegenda Area PASI:\n   0: 0%\n   1: &lt;10%\n   2: 10–29%\n   3: 30–49%\n   4: 50–69%\n   5: 70–89%\n   6: 90–100%" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -92,7 +122,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Punteggi Clinici (PASI ed EASI)"
+                        android:text="EASI (Eczema Area and Severity Index)"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -102,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="4dp"
-                        android:text="PASI: Standard per la psoriasi. Valuta l'eritema, l'indurimento e la desquamazione su quattro aree del corpo.\n\nEASI: Standard per la dermatite atopica. Valuta l'estensione dell'area colpita e la gravità di eritema, edema, escoriazione e lichenificazione." />
+                        android:text="Standard per la dermatite atopica. Valuta:\n• Eritema: rossore\n• Edema / Papulazione: gonfiore/rilievo\n• Escoriazione: segni di grattamento\n• Lichenificazione: ispessimento della pelle\n• Area: percentuale di superficie colpita\n\nLegenda Area EASI:\n   0: 0%\n   1: &lt;10%\n   2: 10–29%\n   3: 30–49%\n   4: 50–69%\n   5: 70–89%\n   6: 90–100%" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

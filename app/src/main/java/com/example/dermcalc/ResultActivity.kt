@@ -33,7 +33,7 @@ class ResultActivity : AppCompatActivity() {
                 when {
                     score < 18.5 -> { tvDesc.text = "Sottopeso"; tvDesc.setTextColor(Color.BLUE) }
                     score < 25.0 -> { tvDesc.text = "Normopeso"; tvDesc.setTextColor(Color.GREEN) }
-                    score < 30.0 -> { tvDesc.text = "Sovrappeso"; tvDesc.setTextColor(Color.YELLOW) }
+                    score < 30.0 -> { tvDesc.text = "Sovrappeso"; tvDesc.setTextColor(Color.MAGENTA) }
                     else -> { tvDesc.text = "Obesità"; tvDesc.setTextColor(Color.RED) }
                 }
             }
@@ -44,7 +44,7 @@ class ResultActivity : AppCompatActivity() {
             "PASI" -> {
                 when {
                     score < 10 -> { tvDesc.text = "Psoriasi Lieve"; tvDesc.setTextColor(Color.GREEN) }
-                    score <= 20 -> { tvDesc.text = "Psoriasi Moderata"; tvDesc.setTextColor(Color.YELLOW) }
+                    score <= 20 -> { tvDesc.text = "Psoriasi Moderata"; tvDesc.setTextColor(Color.MAGENTA) }
                     else -> { tvDesc.text = "Psoriasi Grave"; tvDesc.setTextColor(Color.RED) }
                 }
             }
@@ -52,7 +52,7 @@ class ResultActivity : AppCompatActivity() {
                 when {
                     score <= 1.0 -> { tvDesc.text = "Dermatite Assente"; tvDesc.setTextColor(Color.GRAY) }
                     score <= 7.0 -> { tvDesc.text = "Dermatite Lieve"; tvDesc.setTextColor(Color.GREEN) }
-                    score <= 21.0 -> { tvDesc.text = "Dermatite Moderata"; tvDesc.setTextColor(Color.YELLOW) }
+                    score <= 21.0 -> { tvDesc.text = "Dermatite Moderata"; tvDesc.setTextColor(Color.MAGENTA) }
                     else -> { tvDesc.text = "Dermatite Grave"; tvDesc.setTextColor(Color.RED) }
                 }
             }
