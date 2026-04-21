@@ -64,8 +64,8 @@ object NavManager {
                 .setTitle("Gestione Account")
                 .setMessage("Sei connesso come: $cfLoggato")
                 .setPositiveButton("Visualizza Dati") { _, _ ->
-                    // Qui puoi aggiungere l'intent per la pagina dei risultati salvati
-                    // activity.startActivity(Intent(activity, StoricoActivity::class.java))
+                    val intent = Intent(activity, ProfileActivity::class.java)
+                    activity.startActivity(intent)
                 }
                 .setNeutralButton("Logout") { _, _ ->
                     // Esegue il logout e torna alla pagina di Welcome
