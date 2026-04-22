@@ -24,7 +24,7 @@
                 android:text="Calcolo PASI"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="#0D47A1"
                 android:layout_marginBottom="16dp" />
 
             <View
@@ -130,7 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="PROSSIMO DISTRETTO"
-                android:backgroundTint="@android:color/holo_blue_dark"
+                android:background="@drawable/bg_button_rounded"
+                android:backgroundTint="#0D47A1"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"/>
 

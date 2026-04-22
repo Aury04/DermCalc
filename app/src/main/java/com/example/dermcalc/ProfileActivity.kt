@@ -53,11 +53,18 @@ class ProfileActivity : AppCompatActivity() {
                     findViewById<TextView>(R.id.tv_email).text = "Email: ${it.email}"
                 }
 
-                val listaPasi = db.getPasiByUser(cfLoggato).map { CalcoloUnificato("PASI", it.risultato.toString(), it.dataCalcolo) }
-                val listaEasi = db.getEasiByUser(cfLoggato).map { CalcoloUnificato("EASI", it.risultato.toString(), it.dataCalcolo) }
-                val listaBmi = db.getBmiByUser(cfLoggato).map { CalcoloUnificato("BMI", it.risultato.toString(), it.dataCalcolo) }
-                val listaBsa = db.getBsaByUser(cfLoggato).map { CalcoloUnificato("BSA", "${it.risultato} m²", it.dataCalcolo) }
-
+                val listaPasi = db.getPasiByUser(cfLoggato).map {
+                    CalcoloUnificato("PASI", String.format("%.2f", it.risultato), it.dataCalcolo)
+                }
+                val listaEasi = db.getEasiByUser(cfLoggato).map {
+                    CalcoloUnificato("EASI", String.format("%.2f", it.risultato), it.dataCalcolo)
+                }
+                val listaBmi = db.getBmiByUser(cfLoggato).map {
+                    CalcoloUnificato("BMI", String.format("%.2f", it.risultato), it.dataCalcolo)
+                }
+                val listaBsa = db.getBsaByUser(cfLoggato).map {
+                    CalcoloUnificato("BSA", String.format("%.2f m²", it.risultato), it.dataCalcolo)
+                }
                 val storicoCompleto = (listaPasi + listaEasi + listaBmi + listaBsa)
                     .sortedByDescending { it.data }
 
@@ -78,6 +85,7 @@ class ProfileActivity : AppCompatActivity() {
         if (lista.isEmpty()) {
             val emptyView = TextView(this)
             emptyView.text = "Nessun calcolo effettuato finora."
+            emptyView.setPadding(0, 20, 0, 0)
             container.addView(emptyView)
             return
         }
@@ -86,9 +94,25 @@ class ProfileActivity : AppCompatActivity() {
         for (item in lista) {
             val view = inflater.inflate(R.layout.item_storico_calcolo, container, false)
 
-            view.findViewById<TextView>(R.id.tv_tipo_calcolo).text = item.tipo
-            view.findViewById<TextView>(R.id.tv_risultato).text = "Valore: ${item.valore}"
-            view.findViewById<TextView>(R.id.tv_data_calcolo).text = item.data
+            val tvTipo = view.findViewById<TextView>(R.id.tv_tipo_calcolo)
+            val tvRisultato = view.findViewById<TextView>(R.id.tv_risultato)
+            val tvData = view.findViewById<TextView>(R.id.tv_data_calcolo)
+            val indicator = view.findViewById<android.view.View>(R.id.indicator_type)
+
+            val coloreSettato = when (item.tipo.uppercase()) {
+                "PASI" -> android.graphics.Color.parseColor("#0D47A1")
+                "EASI" -> android.graphics.Color.parseColor("#1565C0")
+                "BMI"  -> android.graphics.Color.parseColor("#1976D2")
+                "BSA"  -> android.graphics.Color.parseColor("#1E88E5")
+                else   -> android.graphics.Color.GRAY
+            }
+
+            tvTipo.text = item.tipo
+            tvTipo.setTextColor(coloreSettato)
+            tvRisultato.text = "Valore: ${item.valore}"
+            tvData.text = item.data
+
+            indicator.setBackgroundColor(coloreSettato)
 
             container.addView(view)
         }

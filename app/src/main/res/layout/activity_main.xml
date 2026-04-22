@@ -4,81 +4,115 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="?android:attr/windowBackground">
+    android:background="#F8FAFC"> <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/bottom_navigation"
+    android:fillViewport="true">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center_horizontal">
+            android:text="DermCalc"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#0B57D0" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DermCalc"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="32dp"
-                android:textColor="@android:color/holo_blue_dark" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Strumenti di Diagnosi Dermatologica"
+            android:textSize="14sp"
+            android:textColor="#64748B"
+            android:layout_marginBottom="40dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seleziona un calcolatore clinico:"
-                android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btn_pasi"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button_rounded"
+            android:backgroundTint="#0D47A1"
+            android:text="Calcola PASI (Psoriasi)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/icon_pasi"
+            android:drawableTint="@android:color/white"
+            android:drawablePadding="16dp"
+            android:paddingLeft="24dp"
+            android:gravity="center_vertical|start"
+            android:elevation="4dp" />
 
-            <Button
-                android:id="@+id/btn_pasi"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Calcola PASI (Psoriasi)"
-                android:drawableLeft="@drawable/icon_pasi"
-                android:drawablePadding="12dp"
-                android:paddingLeft="16dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btn_easi"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button_rounded"
+            android:backgroundTint="#1565C0"
+            android:text="Calcola EASI (Dermatite)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/icon_easi"
+            android:drawableTint="@android:color/white"
+            android:drawablePadding="16dp"
+            android:paddingLeft="24dp"
+            android:gravity="center_vertical|start"
+            android:elevation="4dp" />
 
-            <Button
-                android:id="@+id/btn_easi"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Calcola EASI (Dermatite Atopica)"
-                android:drawableLeft="@drawable/icon_easi"
-                android:drawablePadding="12dp"
-                android:paddingLeft="16dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btn_bmi"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button_rounded"
+            android:backgroundTint="#1976D2"
+            android:text="Calcola BMI (Massa Corporea)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/icon_bmi"
+            android:drawableTint="@android:color/white"
+            android:drawablePadding="16dp"
+            android:paddingLeft="24dp"
+            android:gravity="center_vertical|start"
+            android:elevation="4dp" />
 
-            <Button
-                android:id="@+id/btn_bmi"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Calcola BMI (Indice Massa Corporea)"
-                android:drawableLeft="@drawable/icon_bmi"
-                android:drawablePadding="12dp"
-                android:paddingLeft="16dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btn_bsa"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button_rounded"
+            android:backgroundTint="#1E88E5"
+            android:text="Calcola BSA (Superficie)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/icon_bsa"
+            android:drawableTint="@android:color/white"
+            android:drawablePadding="16dp"
+            android:paddingLeft="24dp"
+            android:gravity="center_vertical|start"
+            android:elevation="4dp" />
 
-            <Button
-                android:id="@+id/btn_bsa"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Calcola BSA (Superfice Corporea)"
-                android:drawableLeft="@drawable/icon_bsa"
-                android:drawablePadding="12dp"
-                android:paddingLeft="16dp"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="16dp" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
