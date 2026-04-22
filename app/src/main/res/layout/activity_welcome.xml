@@ -43,18 +43,22 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Continua come ospite"
+        android:background="@drawable/bg_button_rounded"
         android:backgroundTint="#87CEEB"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Login o Registrati"
+        android:background="@drawable/bg_button_rounded"
         android:backgroundTint="#4682B4"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAllCaps="false" />
 
 </LinearLayout>

@@ -24,7 +24,7 @@
                 android:text="Calcolo EASI: Seleziona Età"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="#1565C0"
                 android:layout_marginBottom="16dp" />
 
             <RadioGroup
@@ -164,7 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="PROSSIMO DISTRETTO"
-                android:backgroundTint="@android:color/holo_green_dark"
+                android:background="@drawable/bg_button_rounded"
+                android:backgroundTint="#1565C0"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"/>
 

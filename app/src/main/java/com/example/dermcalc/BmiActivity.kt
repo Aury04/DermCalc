@@ -53,7 +53,7 @@ class BmiActivity : AppCompatActivity() {
 
             /**
              * --- LOGICA DI CALCOLO ---
-             * Formula BMI: Peso (kg) / Altezza^2 (m
+             * Formula BMI: Peso (kg) / Altezza^2 (m)
             */
             val altezzaM = altezzaCm / 100
             val bmi = peso / (altezzaM * altezzaM)
