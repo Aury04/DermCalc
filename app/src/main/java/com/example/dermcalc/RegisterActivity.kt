@@ -14,6 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Activity che gestisce la creazione di un nuovo account utente.
+ * Include logiche di validazione stringenti (Regex) e garantisce l'univocità
+ * dell'utente nel database tramite controllo del Codice Fiscale.
+ */
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
@@ -25,7 +30,6 @@ class RegisterActivity : AppCompatActivity() {
 
         val db = DermCalcDatabase.getDatabase(this)
 
-        // Forza il maiuscolo mentre l'utente scrive nel campo CF
         binding.regCF.filters = arrayOf(InputFilter.AllCaps())
 
         binding.btnSalvaRegistrazione.setOnClickListener {
@@ -35,7 +39,6 @@ class RegisterActivity : AppCompatActivity() {
             val email = binding.regEmail.text.toString().trim()
             val pass = binding.regPass.text.toString().trim()
 
-            // Validazioni (rimangono uguali, ottime!)
             if (nome.isEmpty() || cognome.isEmpty() || cf.isEmpty() || email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Tutti i campi sono obbligatori", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -56,8 +59,11 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            /**
+             * --- CONTROLLO UNICITÀ E SALVATAGGIO ---
+             * Verifichiamo sul thread IO se il CF è già presente nel DB.
+             */
             lifecycleScope.launch(Dispatchers.IO) {
-                // Controllo esistenza
                 val utenteEsistente = db.dermCalcDao().checkUtenteEsistente(cf)
 
                 withContext(Dispatchers.Main) {
@@ -65,7 +71,6 @@ class RegisterActivity : AppCompatActivity() {
                         binding.regCF.error = "Questo Codice Fiscale è già registrato!"
                         Toast.makeText(this@RegisterActivity, "Utente già presente", Toast.LENGTH_SHORT).show()
                     } else {
-                        // Spostiamo tutto il salvataggio nell'ELSE
                         val passwordCriptata = RLControls.hashPassword(pass)
                         val nuovoUtente = Utente(
                             codFiscale = cf,
@@ -75,13 +80,12 @@ class RegisterActivity : AppCompatActivity() {
                             password = passwordCriptata
                         )
 
-                        // Eseguiamo l'insert in un thread secondario
                         launch(Dispatchers.IO) {
                             db.dermCalcDao().insertUtente(nuovoUtente)
                         }
 
                         Toast.makeText(this@RegisterActivity, "Registrazione completata!", Toast.LENGTH_SHORT).show()
-                        finish() // Chiude solo se la registrazione ha successo
+                        finish()
                     }
                 }
             }

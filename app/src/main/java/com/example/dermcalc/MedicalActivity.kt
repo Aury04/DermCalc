@@ -2,9 +2,13 @@ package com.example.dermcalc
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dermcalc.NavBarControl.NavManager
+import com.example.dermcalc.navBarControl.NavManager
 
-
+/**
+ * Activity informativa dedicata alle note metodologiche e ai disclaimer medici.
+ * Fornisce all'utente il contesto scientifico dietro i calcolatori utilizzati
+ * e le avvertenze legali sull'uso professionale dei risultati.
+ */
 class MedicalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +20,7 @@ class MedicalActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        finish() // Chiude questa pagina e torna alla precedente
+        finish()
         return true
     }
 

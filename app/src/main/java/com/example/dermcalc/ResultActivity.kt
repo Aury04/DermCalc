@@ -6,8 +6,14 @@ import android.graphics.Color
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dermcalc.NavBarControl.NavManager
+import com.example.dermcalc.navBarControl.NavManager
 
+/**
+ * Activity di visualizzazione dei risultati.
+ * Riceve il punteggio calcolato e il tipo di test effettuato,
+ * applica le scale di gravità mediche internazionali e fornisce
+ * un feedback visivo immediato tramite colori e descrizioni.
+ */
 class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,14 +26,22 @@ class ResultActivity : AppCompatActivity() {
         val tvDesc = findViewById<TextView>(R.id.tv_score_description)
         val btnHome = findViewById<Button>(R.id.btn_back_home)
 
-        // Recuperiamo i dati passati dalle altre Activity
+        /**
+         * --- RECUPERO DATI DALL'INTENT ---
+         * EXTRA_SCORE: il valore numerico calcolato
+         * EXTRA_TYPE: la stringa identificativa (BMI, BSA, PASI, EASI)
+         */
         val score = intent.getDoubleExtra("EXTRA_SCORE", 0.0)
         val type = intent.getStringExtra("EXTRA_TYPE") ?: "Calcolo"
 
         tvTitle.text = "Risultato $type"
         tvScore.text = String.format("%.2f", score)
 
-        // Logica di classificazione per ogni funzionalità
+        /**
+         * --- LOGICA DI CLASSIFICAZIONE CLINICA ---
+         * Per ogni tipologia di test, vengono definiti i "cutoff" basati
+         * sulla letteratura scientifica e associati a un codice colore semaforico.
+         */
         when (type) {
             "BMI" -> {
                 when {
@@ -60,10 +74,9 @@ class ResultActivity : AppCompatActivity() {
 
         btnHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            // Queste "Flags" dicono ad Android di chiudere tutte le altre attività aperte
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
-            finish() // Chiude definitivamente la schermata dei risultati
+            finish()
         }
     }
 }

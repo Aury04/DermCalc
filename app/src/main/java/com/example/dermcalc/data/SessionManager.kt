@@ -6,34 +6,48 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+/**
+ * Gestore della sessione utente e utility globali.
+ * Utilizza un pattern Singleton per mantenere i dati dell'utente attivo in memoria RAM.
+ */
 object SessionManager {
 
-    // --- QUESTA È LA CHIAVE ---
-    // Usiamo una variabile semplice invece delle SharedPreferences.
-    // Essendo un 'object', questa variabile è globale per l'app,
-    // ma scompare non appena l'app viene chiusa del tutto.
+    /**
+     * Identificativo dell'utente loggato (Codice Fiscale).
+     * Essendo una variabile privata in un 'object', i dati persistono finché
+     * il processo dell'app è attivo, garantendo una sessione temporanea e sicura.
+     */
     private var utenteCfAttivo: String? = null
 
-    // 1. Funzione per salvare (da chiamare nel Login)
+    /**
+     * Registra il Codice Fiscale dell'utente al momento del login o della registrazione.
+     * @param cf Il codice fiscale dell'utente autenticato.
+     */
     fun saveUtenteCF(cf: String) {
         utenteCfAttivo = cf
     }
 
-    // 2. Funzione per recuperare (da chiamare nei calcoli BMI, BSA, ecc.)
+    /**
+     * Recupera il Codice Fiscale dell'utente attualmente in sessione.
+     * @return Il CF dell'utente se loggato, null se l'utente sta navigando come ospite.
+     */
     fun getUtenteCF(context: Context): String? {
         return utenteCfAttivo
     }
 
-    // 3. Funzione Logout (per il tasto esci o per resettare)
-    fun logout() {
-        utenteCfAttivo = null
-    }
-
+    /**
+     * Termina la sessione corrente resettando il riferimento all'utente.
+     * Da invocare quando l'utente sceglie di effettuare il logout.
+     */
     fun logoutB(activity: AppCompatActivity) {
         utenteCfAttivo = null
     }
 
-    // Funzione per la data (rimane uguale)
+    /**
+     * Utility per ottenere la data odierna formattata in stile italiano.
+     * Utilizzata per marcare temporalmente i salvataggi dei calcoli nel database.
+     * @return Stringa della data nel formato "dd/MM/yyyy".
+     */
     fun getDataCorrente(): String {
         val date = Calendar.getInstance().time
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
