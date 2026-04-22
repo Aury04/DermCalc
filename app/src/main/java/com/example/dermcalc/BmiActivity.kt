@@ -6,14 +6,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope // NUOVO: serve per le coroutine
-import com.example.dermcalc.NavBarControl.NavManager
+import androidx.lifecycle.lifecycleScope
+import com.example.dermcalc.navBarControl.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.BmiScore
 import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * Activity dedicata al calcolo dell'Indice di Massa Corporea (BMI).
+ * Gestisce l'acquisizione dei dati antropometrici, il calcolo matematico
+ * e il salvataggio asincrono dei risultati per gli utenti loggati.
+ */
 class BmiActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +27,7 @@ class BmiActivity : AppCompatActivity() {
 
         NavManager.inizializzaNavbar(this)
 
-        // Inizializziamo il DB
-        val db = DermCalcDatabase.getDatabase(this) // NUOVO
+        val db = DermCalcDatabase.getDatabase(this)
 
         val etPeso = findViewById<EditText>(R.id.et_peso)
         val etAltezza = findViewById<EditText>(R.id.et_altezza)
@@ -33,6 +37,7 @@ class BmiActivity : AppCompatActivity() {
             val pesoStr = etPeso.text.toString()
             val altezzaStr = etAltezza.text.toString()
 
+            // --- VALIDAZIONE INPUT ---
             if (pesoStr.isEmpty() || altezzaStr.isEmpty()) {
                 Toast.makeText(this, "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -46,13 +51,19 @@ class BmiActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            /**
+             * --- LOGICA DI CALCOLO ---
+             * Formula BMI: Peso (kg) / Altezza^2 (m
+            */
             val altezzaM = altezzaCm / 100
             val bmi = peso / (altezzaM * altezzaM)
 
-            // 1. RECUPERIAMO IL CF (se esiste)
+            /**
+             * --- GESTIONE SESSIONE E SALVATAGGIO ---
+             * Recuperiamo il Codice Fiscale dalla sessione RAM (null se ospite)
+             */
             val cfAttivo = SessionManager.getUtenteCF(this)
 
-            // 2. LOGICA DI SALVATAGGIO (Solo se loggato)
             if (cfAttivo != null) {
                 val nuovoRecord = BmiScore(
                     utenteId = cfAttivo,
@@ -60,16 +71,25 @@ class BmiActivity : AppCompatActivity() {
                     dataCalcolo = SessionManager.getDataCorrente()
                 )
 
-                // Salvataggio "silenzioso" in background (non blocca l'utente)
+                /**
+                 * Salvataggio in Background:
+                 * lifecycleScope.launch(Dispatchers.IO) per eseguire la query
+                 * su un thread dedicato all'I/O. Questo evita il blocco dell'interfaccia
+                 * utente (ANR - App Not Responding) durante la scrittura su disco.
+                 */
                 lifecycleScope.launch(Dispatchers.IO) {
                     try {
                         db.dermCalcDao().insertBmi(nuovoRecord)
                     } catch (e: Exception) {
-                        // Errore silenzioso o log
+
                     }
                 }
             }
-            // 3. NAVIGAZIONE AI RISULTATI (Sempre, anche se non loggato)
+
+            /**
+             *  --- NAVIGAZIONE AI RISULTATI ---
+             * Passiamo il valore calcolato e il tipo di calcolo alla ResultActivity
+             */
             val intent = Intent(this@BmiActivity, ResultActivity::class.java)
             intent.putExtra("EXTRA_SCORE", bmi)
             intent.putExtra("EXTRA_TYPE", "BMI")

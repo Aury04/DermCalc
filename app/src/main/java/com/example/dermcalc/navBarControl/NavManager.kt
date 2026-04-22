@@ -1,4 +1,4 @@
-package com.example.dermcalc.NavBarControl
+package com.example.dermcalc.navBarControl
 
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
@@ -7,25 +7,33 @@ import com.example.dermcalc.*
 import com.example.dermcalc.data.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ * Gestore centralizzato della barra di navigazione (BottomNavigationView).
+ * Permette di mantenere una logica di navigazione coerente tra tutte le schermate
+ * dell'applicazione senza duplicare il codice.
+ */
 object NavManager {
 
     /**
-     * Inizializza la Navbar inferiore, gestisce la navigazione e
-     * corregge il problema dell'icona inizialmente selezionata.
+     * Inizializza la Navbar, configura i listener per i click e corregge il focus visivo.
+     * Deve essere chiamata nel metodo onCreate di ogni Activity che implementa la barra.
+     * @param activity L'activity di riferimento da cui viene invocata la navbar.
      */
     fun inizializzaNavbar(activity: AppCompatActivity) {
         val bottomNav = activity.findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // --- RESET SELEZIONE INIZIALE ---
-        // Di default la Navbar seleziona il primo elemento.
-        // Questo blocco deseleziona tutto all'avvio dell'Activity.
+        /**
+         * --- RESET SELEZIONE INIZIALE ---
+         * Disattiva l'evidenziazione automatica del primo elemento per mantenere
+         * la barra in uno stato neutro all'apertura delle calcolatrici.
+         */
         bottomNav.menu.setGroupCheckable(0, true, false)
         for (i in 0 until bottomNav.menu.size()) {
             bottomNav.menu.getItem(i).isChecked = false
         }
         bottomNav.menu.setGroupCheckable(0, true, true)
 
-        // --- GESTIONE CLICK ---
+        // --- GESTIONE CLICK SUI MENU---
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_info -> {
@@ -35,16 +43,13 @@ object NavManager {
                     false
                 }
                 R.id.nav_home -> {
-                    // Torna alla MainActivity e pulisce lo stack delle Activity
                     val intent = Intent(activity, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     activity.startActivity(intent)
                     true
                 }
                 R.id.nav_user -> {
-                    // Gestisce il profilo (Logout o invito a Registrazione)
                     gestisciProfilo(activity)
-                    // Ritorna false per non lasciare l'icona "accesa" dopo il click
                     false
                 }
                 else -> false
@@ -53,13 +58,15 @@ object NavManager {
     }
 
     /**
-     * Mostra un popup differente in base allo stato di login dell'utente.
+     * Gestisce la logica di accesso all'area utente.
+     * Se l'utente è loggato, mostra opzioni di visualizzazione dati o logout.
+     * Se l'utente è un ospite, fornisce un invito rapido alla registrazione.
      */
     private fun gestisciProfilo(activity: AppCompatActivity) {
         val cfLoggato = SessionManager.getUtenteCF(activity)
 
         if (cfLoggato != null) {
-            // Caso 1: UTENTE LOGGATO
+            // --- SCENARIO: UTENTE AUTENTICATO ---
             AlertDialog.Builder(activity)
                 .setTitle("Gestione Account")
                 .setMessage("Sei connesso come: $cfLoggato")
@@ -68,7 +75,6 @@ object NavManager {
                     activity.startActivity(intent)
                 }
                 .setNeutralButton("Logout") { _, _ ->
-                    // Esegue il logout e torna alla pagina di Welcome
                     SessionManager.logoutB(activity)
                     val intent = Intent(activity, WelcomeActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -77,7 +83,7 @@ object NavManager {
                 .setNegativeButton("Annulla", null)
                 .show()
         } else {
-            // Caso 2: UTENTE NON LOGGATO (Ospite)
+            // --- SCENARIO: NAVIGAZIONE OSPITE ---
             AlertDialog.Builder(activity)
                 .setTitle("Accesso Ospite")
                 .setMessage("Registrati o accedi")

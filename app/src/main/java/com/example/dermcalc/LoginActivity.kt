@@ -13,6 +13,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Activity che gestisce l'autenticazione dell'utente.
+ * Implementa il controllo delle credenziali tramite confronto di hash crittografici
+ * e inizializza la sessione globale in caso di successo.
+ */
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -33,12 +38,14 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // --- NUOVA LOGICA: CRIPTAZIONE PER IL CONFRONTO ---
-            // Trasformiamo la password inserita nello stesso Hash usato in registrazione
+            /**
+             * --- SICUREZZA: HASHING ---
+             * Non inviamo la password reale al database. Trasformiamo l'input in un hash SHA-256.
+             * Se l'hash generato corrisponde a quello salvato nel DB, l'identità è confermata.
+             */
             val passwordCriptata = RLControls.hashPassword(passwordInserita)
 
             lifecycleScope.launch(Dispatchers.IO) {
-                // Cerchiamo l'utente usando CF e la password CRIPTATA
                 val utente = db.dermCalcDao().login(cf, passwordCriptata)
 
                 withContext(Dispatchers.Main) {
@@ -52,19 +59,19 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        // Se l'utente non viene trovato, potrebbe essere il CF sbagliato
-                        // o la password che, una volta criptata, non corrisponde a quella nel DB
                         Toast.makeText(this@LoginActivity, "Codice Fiscale o Password errati", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
 
+        // Navigazione verso la schermata di registrazione
         binding.tvVaiARegistrati.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
+        // Ritorno alla schermata di benvenuto/scelta iniziale
         binding.tvTornaWelcome.setOnClickListener {
             val intent = Intent(this, WelcomeActivity::class.java)
             startActivity(intent)

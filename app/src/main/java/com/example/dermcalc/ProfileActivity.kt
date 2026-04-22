@@ -2,23 +2,31 @@ package com.example.dermcalc
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.dermcalc.NavBarControl.NavManager
+import com.example.dermcalc.navBarControl.NavManager
 import com.example.dermcalc.data.DermCalcDatabase
 import com.example.dermcalc.data.SessionManager
 import kotlinx.coroutines.launch
 
+/**
+ * Activity dedicata al profilo utente e alla visualizzazione dello storico.
+ * Estrae dati da tabelle multiple del database e li unifica in un'unica
+ * cronologia ordinata per data.
+ */
 class ProfileActivity : AppCompatActivity() {
 
-    // Definiamo una classe semplice per unificare i calcoli diversi nella lista
+    /**
+     * Rappresentazione generica di un risultato clinico.
+     * Utilizzata per normalizzare i dati di PASI, EASI, BMI e BSA in un unico formato
+     * adatto alla visualizzazione nella lista dello storico.
+     */
     data class CalcoloUnificato(
         val tipo: String,
         val valore: String,
-        val data: String // Usiamo il timestamp per l'ordinamento
+        val data: String
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +40,12 @@ class ProfileActivity : AppCompatActivity() {
         if (cfLoggato != null) {
             val db = DermCalcDatabase.getDatabase(this).dermCalcDao()
 
+            /**
+             * Utilizzo di lifecycleScope: permette di eseguire query pesanti (multiple)
+             * in modo asincrono, evitando di bloccare l'interfaccia durante il caricamento
+             * dello storico completo.
+             */
             lifecycleScope.launch {
-                // 1. Carica dati utente
                 val utente = db.getUtente(cfLoggato)
                 utente?.let {
                     findViewById<TextView>(R.id.tv_full_name).text = "${it.nome} ${it.cognome}"
@@ -41,22 +53,24 @@ class ProfileActivity : AppCompatActivity() {
                     findViewById<TextView>(R.id.tv_email).text = "Email: ${it.email}"
                 }
 
-                // 2. Recupera tutti i calcoli dai vari metodi del DAO
                 val listaPasi = db.getPasiByUser(cfLoggato).map { CalcoloUnificato("PASI", it.risultato.toString(), it.dataCalcolo) }
                 val listaEasi = db.getEasiByUser(cfLoggato).map { CalcoloUnificato("EASI", it.risultato.toString(), it.dataCalcolo) }
                 val listaBmi = db.getBmiByUser(cfLoggato).map { CalcoloUnificato("BMI", it.risultato.toString(), it.dataCalcolo) }
                 val listaBsa = db.getBsaByUser(cfLoggato).map { CalcoloUnificato("BSA", "${it.risultato} m²", it.dataCalcolo) }
 
-                // 3. Unisci e ordina per data (decrescente)
                 val storicoCompleto = (listaPasi + listaEasi + listaBmi + listaBsa)
                     .sortedByDescending { it.data }
 
-                // 4. Mostra i dati nell'interfaccia
                 popolaInterfaccia(storicoCompleto)
             }
         }
     }
 
+    /**
+     * Genera dinamicamente le righe dello storico all'interno del container.
+     * Utilizza un LayoutInflater per inserire un file XML (item_storico_calcolo)
+     * per ogni risultato trovato.
+     */
     private fun popolaInterfaccia(lista: List<CalcoloUnificato>) {
         val container = findViewById<LinearLayout>(R.id.container_history)
         container.removeAllViews()

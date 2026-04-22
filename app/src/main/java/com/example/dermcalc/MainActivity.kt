@@ -2,21 +2,23 @@ package com.example.dermcalc
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity // Cambiato da ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
-import com.example.dermcalc.NavBarControl.NavManager
+import com.example.dermcalc.navBarControl.NavManager
 
-// Usiamo AppCompatActivity per supportare i layout XML classici
+/**
+ * Main Entry Point dell'applicazione dopo il Login/Welcome.
+ * Questa Activity funge da Dashboard principale, esponendo i quattro calcolatori
+ * clinici core del progetto: PASI, EASI, BMI e BSA.
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Questo comando collega il file XML che abbiamo creato
         setContentView(R.layout.activity_main)
         NavManager.inizializzaNavbar(this)
 
-        // Esempio di come collegare i bottoni e aggiungere un'azione
         val btnPasi = findViewById<Button>(R.id.btn_pasi)
         btnPasi.setOnClickListener {
             val intent = Intent(this, PasiActivity::class.java)
