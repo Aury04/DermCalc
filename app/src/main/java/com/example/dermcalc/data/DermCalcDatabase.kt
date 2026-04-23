@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
  * - [Utente]: Dati anagrafici e credenziali.
  * - [PasiScore], [EasiScore], [BmiScore], [BsaScore]: Storico dei vari calcoli clinici.
  */
-@Database(entities = [Utente::class, PasiScore::class, EasiScore::class, BmiScore::class, BsaScore::class], version = 1)
+@Database(entities = [Utente::class, PasiScore::class, EasiScore::class, BmiScore::class, BsaScore::class], version = 2)
 abstract class DermCalcDatabase : RoomDatabase() {
 
     /**

@@ -72,7 +72,9 @@ class BsaActivity : AppCompatActivity() {
                 val nuovoRecord = BsaScore(
                     utenteId = cfAttivo,
                     risultato = bsa,
-                    dataCalcolo = SessionManager.getDataCorrente()
+                    dataCalcolo = SessionManager.getDataCorrente(),
+                    peso = peso,
+                    altezza = altezza
                 )
 
                 /**

@@ -54,7 +54,7 @@
                             android:layout_marginTop="8dp"
                             android:lineSpacingExtra="4dp"
                             android:textColor="#475569"
-                            android:text="Standard per la psoriasi. Valuta:\n• Eritema: arrossamento\n• Infiltrazione: spessore placca\n• Desquamazione: presenza di scaglie\n• Area: % di superficie colpita\n\nLegenda Area PASI:\n0: 0% | 1: &lt;10% | 2: 10–29% | 3: 30–49%\n4: 50–69% | 5: 70–89% | 6: 90–100%" />
+                            android:text="Standard per la psoriasi. Valuta:\n• Eritema: arrossamento\n• Indurimento: spessore placca\n• Desquamazione: presenza di scaglie\n• Area: % di superficie colpita\n\nLegenda Area PASI:\n0: 0% | 1: &lt;10% | 2: 10–29% | 3: 30–49%\n4: 50–69% | 5: 70–89% | 6: 90–100%" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

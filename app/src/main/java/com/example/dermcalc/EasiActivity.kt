@@ -113,7 +113,7 @@ class EasiActivity : AppCompatActivity() {
                 intent.putExtra("EXTRA_SCORE", easiTotale)
                 intent.putExtra("EXTRA_TYPE", "EASI")
                 startActivity(intent)
-                finish() // Chiude l'activity di calcolo
+                finish()
             }
         }
     }

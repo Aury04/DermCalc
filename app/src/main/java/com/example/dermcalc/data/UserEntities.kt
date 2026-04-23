@@ -46,11 +46,42 @@ class EasiScore(id: Int = 0, utenteId: String, risultato: Double, dataCalcolo: S
 /**
  * Entità per il salvataggio dell'Indice di Massa Corporea (BMI).
  */
-@Entity(tableName = "bmi_scores", foreignKeys = [ForeignKey(entity = Utente::class, parentColumns = ["codFiscale"], childColumns = ["utenteId"], onDelete = ForeignKey.CASCADE)])
-class BmiScore(id: Int = 0, utenteId: String, risultato: Double, dataCalcolo: String) : BaseScore(id, utenteId, risultato, dataCalcolo)
+@Entity(
+    tableName = "bmi_scores",
+    foreignKeys = [ForeignKey(
+        entity = Utente::class,
+        parentColumns = ["codFiscale"],
+        childColumns = ["utenteId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+class BmiScore(
+    id: Int = 0,
+    utenteId: String,
+    risultato: Double,
+    dataCalcolo: String,
+    val peso: Double,
+    val altezza: Double
+) : BaseScore(id, utenteId, risultato, dataCalcolo) {
+}
 
 /**
  * Entità per il salvataggio della Superficie Corporea (BSA).
  */
-@Entity(tableName = "bsa_scores", foreignKeys = [ForeignKey(entity = Utente::class, parentColumns = ["codFiscale"], childColumns = ["utenteId"], onDelete = ForeignKey.CASCADE)])
-class BsaScore(id: Int = 0, utenteId: String, risultato: Double, dataCalcolo: String) : BaseScore(id, utenteId, risultato, dataCalcolo)
+@Entity(
+    tableName = "bsa_scores",
+    foreignKeys = [ForeignKey(
+        entity = Utente::class,
+        parentColumns = ["codFiscale"],
+        childColumns = ["utenteId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+class BsaScore(
+    id: Int = 0,
+    utenteId: String,
+    risultato: Double,
+    dataCalcolo: String,
+    val peso: Double,
+    val altezza: Double
+) : BaseScore(id, utenteId, risultato, dataCalcolo)
