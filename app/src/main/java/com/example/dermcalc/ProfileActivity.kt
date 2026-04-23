@@ -2,6 +2,7 @@ package com.example.dermcalc
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,9 @@ class ProfileActivity : AppCompatActivity() {
     data class CalcoloUnificato(
         val tipo: String,
         val valore: String,
-        val data: String
+        val data: String,
+        val peso: String? = null,
+        val altezza: String? = null
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +63,22 @@ class ProfileActivity : AppCompatActivity() {
                     CalcoloUnificato("EASI", String.format("%.2f", it.risultato), it.dataCalcolo)
                 }
                 val listaBmi = db.getBmiByUser(cfLoggato).map {
-                    CalcoloUnificato("BMI", String.format("%.2f", it.risultato), it.dataCalcolo)
+                    CalcoloUnificato(
+                        "BMI",
+                        String.format("%.2f", it.risultato),
+                        it.dataCalcolo,
+                        it.peso.toString(),
+                        it.altezza.toString()
+                    )
                 }
                 val listaBsa = db.getBsaByUser(cfLoggato).map {
-                    CalcoloUnificato("BSA", String.format("%.2f m²", it.risultato), it.dataCalcolo)
+                    CalcoloUnificato(
+                        "BSA",
+                        String.format("%.2f m²", it.risultato),
+                        it.dataCalcolo,
+                        it.peso.toString(),
+                        it.altezza.toString()
+                    )
                 }
                 val storicoCompleto = (listaPasi + listaEasi + listaBmi + listaBsa)
                     .sortedByDescending { it.data }
@@ -99,6 +114,10 @@ class ProfileActivity : AppCompatActivity() {
             val tvData = view.findViewById<TextView>(R.id.tv_data_calcolo)
             val indicator = view.findViewById<android.view.View>(R.id.indicator_type)
 
+            val layoutFisico = view.findViewById<LinearLayout>(R.id.layout_dettagli_fisici)
+            val tvPeso = view.findViewById<TextView>(R.id.tv_peso)
+            val tvAltezza = view.findViewById<TextView>(R.id.tv_altezza)
+
             val coloreSettato = when (item.tipo.uppercase()) {
                 "PASI" -> android.graphics.Color.parseColor("#0D47A1")
                 "EASI" -> android.graphics.Color.parseColor("#1565C0")
@@ -111,8 +130,15 @@ class ProfileActivity : AppCompatActivity() {
             tvTipo.setTextColor(coloreSettato)
             tvRisultato.text = "Valore: ${item.valore}"
             tvData.text = item.data
-
             indicator.setBackgroundColor(coloreSettato)
+
+            if (item.peso != null && item.altezza != null) {
+                layoutFisico.visibility = View.VISIBLE
+                tvPeso.text = "Peso: ${item.peso} kg"
+                tvAltezza.text = "Altezza: ${item.altezza} cm"
+            } else {
+                layoutFisico.visibility = View.GONE
+            }
 
             container.addView(view)
         }

@@ -68,7 +68,9 @@ class BmiActivity : AppCompatActivity() {
                 val nuovoRecord = BmiScore(
                     utenteId = cfAttivo,
                     risultato = bmi,
-                    dataCalcolo = SessionManager.getDataCorrente()
+                    dataCalcolo = SessionManager.getDataCorrente(),
+                    peso = peso,
+                    altezza = altezzaM
                 )
 
                 /**
