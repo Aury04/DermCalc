@@ -1,47 +1,47 @@
 package com.example.dermcalc
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.dermcalc.ui.theme.DermCalcTheme
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import com.example.dermcalc.navBarControl.NavManager
 
-class MainActivity : ComponentActivity() {
+/**
+ * Main Entry Point dell'applicazione dopo il Login/Welcome.
+ * Questa Activity funge da Dashboard principale, esponendo i quattro calcolatori
+ * clinici core del progetto: PASI, EASI, BMI e BSA.
+ */
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            DermCalcTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
+        setContentView(R.layout.activity_main)
+        NavManager.inizializzaNavbar(this)
+
+        val btnPasi = findViewById<Button>(R.id.btn_pasi)
+        btnPasi.setOnClickListener {
+            val intent = Intent(this, PasiActivity::class.java)
+            startActivity(intent)
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        val btnEasi = findViewById<Button>(R.id.btn_easi)
+        btnEasi.setOnClickListener {
+            val intent = Intent(this, EasiActivity::class.java)
+            startActivity(intent)
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DermCalcTheme {
-        Greeting("Android")
+        val btnBmi = findViewById<Button>(R.id.btn_bmi)
+        btnBmi.setOnClickListener {
+            val intent = Intent(this, BmiActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnBsa = findViewById<Button>(R.id.btn_bsa)
+        btnBsa.setOnClickListener {
+            val intent = Intent(this, BsaActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_vertical"
+    android:background="#F8F9FA">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accedi a DermCalc"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserisci le tue credenziali"
+        android:textSize="16sp"
+        android:textColor="#777777"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/etCF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Codice Fiscale"
+        android:padding="16dp"
+        android:inputType="textCapCharacters"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:padding="16dp"
+        android:inputType="textPassword"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="ENTRA"
+        android:background="@drawable/bg_button_rounded"
+        android:backgroundTint="#0D47A1"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/tvVaiARegistrati"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non hai un account? Registrati qui"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="#1976D2"
+        android:textStyle="bold"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/tvTornaWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annulla e torna alla pagina iniziale"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:textColor="#999999"
+        android:textSize="14sp" />
+
+</LinearLayout>

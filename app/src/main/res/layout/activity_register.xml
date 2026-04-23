@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crea Account"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+            android:id="@+id/regNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:padding="16dp"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/regCognome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cognome"
+            android:padding="16dp"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/regCF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Codice Fiscale"
+            android:padding="16dp"
+            android:inputType="textCapCharacters"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/regEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:padding="16dp"
+            android:inputType="textEmailAddress"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/regPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:padding="16dp"
+            android:inputType="textPassword"
+            android:background="@android:drawable/editbox_background"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSalvaRegistrazione"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="REGISTRATI"
+            android:background="@drawable/bg_button_rounded"
+            android:backgroundTint="#0D47A1"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/tvTornaAlLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hai già un account? Accedi"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="#1976D2"
+            android:textStyle="bold"
+            android:padding="8dp" />
+
+    </LinearLayout>
+</ScrollView>

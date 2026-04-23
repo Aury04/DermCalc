@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?android:attr/windowBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tv_pasi_titolo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calcolo PASI"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#0D47A1"
+                android:layout_marginBottom="16dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_distretto_titolo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distretto: TESTA"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eritema"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_eritema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:id="@+id/e0" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:id="@+id/e1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:id="@+id/e2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:id="@+id/e3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
+                <RadioButton android:id="@+id/e4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="4" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indurimento"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_indurimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:id="@+id/i0" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:id="@+id/i1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:id="@+id/i2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:id="@+id/i3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
+                <RadioButton android:id="@+id/i4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="4" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desquamazione"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_desquamazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <RadioButton android:id="@+id/d0" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:id="@+id/d1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:id="@+id/d2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:id="@+id/d3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
+                <RadioButton android:id="@+id/d4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="4" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area Coinvolta (Grado)"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="32dp">
+                <RadioButton android:id="@+id/a0" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="0" />
+                <RadioButton android:id="@+id/a1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="1" />
+                <RadioButton android:id="@+id/a2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="2" />
+                <RadioButton android:id="@+id/a3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="3" />
+                <RadioButton android:id="@+id/a4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="4" />
+                <RadioButton android:id="@+id/a5" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="5" />
+                <RadioButton android:id="@+id/a6" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="6" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="PROSSIMO DISTRETTO"
+                android:background="@drawable/bg_button_rounded"
+                android:backgroundTint="#0D47A1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled" />
+
+</RelativeLayout>
